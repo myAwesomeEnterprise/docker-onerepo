@@ -30,8 +30,8 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./docker/users/nginx/sites:/etc/nginx/conf.d
-      - ./docker/users/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/users/sites:/etc/nginx/conf.d
+      - ./docker/nginx/users/conf/nginx.conf:/etc/nginx/nginx.conf
       - ./services/users:/var/www/html
     networks:
       - servicesNetwork
@@ -67,8 +67,8 @@ services:
     ports:
       - "8001:80"
     volumes:
-      - ./docker/acl/nginx/sites:/etc/nginx/conf.d
-      - ./docker/acl/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/acl/sites:/etc/nginx/conf.d
+      - ./docker/nginx/acl/conf/nginx.conf:/etc/nginx/nginx.conf
       - ./services/acl:/var/www/html
     networks:
       - servicesNetwork
