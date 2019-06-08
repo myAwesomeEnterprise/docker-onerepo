@@ -1,0 +1,6 @@
+[submodule "services/users"]
+	path = services/users
+	url = https://github.com/myAwesomeEnterprise/services-users.git
+[submodule "services/acl"]
+	path = services/acl
+	url = https://github.com/myAwesomeEnterprise/services-acl.git
