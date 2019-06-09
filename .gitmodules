@@ -4,3 +4,6 @@
 [submodule "services/acl"]
 	path = services/acl
 	url = https://github.com/myAwesomeEnterprise/services-acl.git
+[submodule "services/gateway"]
+	path = services/gateway
+	url = https://github.com/myAwesomeEnterprise/services-api-gateway.git

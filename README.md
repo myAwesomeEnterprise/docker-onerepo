@@ -12,5 +12,5 @@
 For add new git submodules to this project you must run this command (${PATH_NAME} is optional, default is repo name):
 ```shell
     $ cd services
-    $ git submodules add ${REPO_URL} ${PATH_NAME}
+    $ git submodules add -f ${REPO_URL} ${PATH_NAME}
 ```
