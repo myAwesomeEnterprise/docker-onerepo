@@ -24,6 +24,28 @@ if [[ $# -gt 0 ]]; then
     elif [[ "$1" == "stop" ]]; then
         ${COMPOSE} down
 
+    elif [[ "$1" == "gateway-art" ]]; then
+        shift 1
+
+        if [[ "$EXEC" == "yes" ]]; then
+            ${COMPOSE} exec gateway_php \
+                php artisan "$@"
+        else
+            ${COMPOSE} run --rm -w /var/www/html gateway_php \
+                php artisan "$@"
+        fi
+
+    elif [[ "$1" == "gateway-composer" ]]; then
+        shift 1
+
+        if [[ "$EXEC" == "yes" ]]; then
+            ${COMPOSE} exec gateway_php \
+                composer "$@"
+
+        else
+            ${COMPOSE} run --rm -w /var/www/html gateway_php \
+                composer "$@"
+        fi
 
     elif [[ "$1" == "users-art" ]]; then
         shift 1
