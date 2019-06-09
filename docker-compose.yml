@@ -27,6 +27,27 @@ services:
       - RABBITMQ_DEFAULT_PASS=guest
       - RABBITMQ_DEFAULT_VHOST=events
 
+  # ------ API GATEWAY
+  gateway_webserver:
+    image: nginx:alpine
+    container_name: 'gateway_webserver'
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/gateway/sites:/etc/nginx/conf.d
+      - ./docker/nginx/gateway/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./services/gateway:/var/www/html
+    networks:
+      - servicesNetwork
+
+  gateway_php:
+    build: docker/php
+    container_name: 'gateway_php'
+    volumes:
+      - ./services/gateway:/var/www/html
+    networks:
+      - servicesNetwork
+
   # ------ USERS SERVICE
   users_webserver:
     image: nginx:alpine
