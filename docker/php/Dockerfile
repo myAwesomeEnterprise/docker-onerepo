@@ -10,7 +10,12 @@ RUN apk update \
     && docker-php-ext-enable xdebug
 
 RUN docker-php-ext-configure zip --with-libzip
-RUN docker-php-ext-install mbstring pdo_mysql zip pcntl bcmath
+RUN docker-php-ext-install bcmath \
+    ctype \
+    json \
+    pcntl \
+    pdo_mysql \
+    zip
 
 RUN curl --silent --show-error https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
