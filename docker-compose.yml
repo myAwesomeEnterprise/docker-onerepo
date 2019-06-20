@@ -66,6 +66,7 @@ services:
     container_name: 'users_php'
     volumes:
       - ./services/users:/var/www/html
+      # - ./docker/php/supervisor/blast_consumer.conf:/etc/supervisor/conf.d/blast_consumer.conf:ro
     networks:
       - servicesNetwork
 
