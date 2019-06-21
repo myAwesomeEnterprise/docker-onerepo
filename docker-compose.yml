@@ -64,9 +64,12 @@ services:
   users_php:
     build: docker/php
     container_name: 'users_php'
+    ports:
+      - "9001:9001"
+    # docker-compose exec users_php supervisord -c /etc/supervisord.conf
     volumes:
       - ./services/users:/var/www/html
-      # - ./docker/php/supervisor/blast_consumer.conf:/etc/supervisor/conf.d/blast_consumer.conf:ro
+      - ./services/users/supervisor/supervisord.conf:/etc/supervisord.conf
     networks:
       - servicesNetwork
 
