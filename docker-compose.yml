@@ -168,8 +168,12 @@ services:
   acl_php:
     build: docker/php
     container_name: 'acl_php'
+    ports:
+      - "9002:9001"
+    # docker-compose exec acl_php supervisord -c /etc/supervisord.conf
     volumes:
       - ./services/acl:/var/www/html
+      - ./services/acl/supervisor/supervisord.conf:/etc/supervisord.conf
     networks:
       - servicesNetwork
 
