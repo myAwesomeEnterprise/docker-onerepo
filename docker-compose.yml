@@ -27,6 +27,8 @@ services:
       - RABBITMQ_DEFAULT_PASS=guest
       - RABBITMQ_DEFAULT_VHOST=events
 
+
+  # ------ GATEWAY KONG
   kong_migrations:
     image: "${KONG_DOCKER_TAG:-kong:latest}"
     command: kong migrations bootstrap
@@ -110,6 +112,7 @@ services:
       - ./services/gateway:/var/www/html
     networks:
       - servicesNetwork
+
 
   # ------ USERS SERVICE
   users_webserver:
