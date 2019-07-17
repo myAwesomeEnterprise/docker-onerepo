@@ -86,12 +86,41 @@ services:
     restart: on-failure
     stdin_open: true
     tty: true
+    ports:
+      - '5432'
     networks:
       - servicesNetwork
     volumes:
       - kong_data:/var/lib/postgresql/data
 
+  konga-prepare:
+    image: pantsel/konga:next
+    command: "-c prepare -a postgres -u postgresql://${KONG_PG_USER:-kong}:${KONG_PG_PASSWORD:-kong}@kong_db:5432/konga_db"
+    networks:
+      - servicesNetwork
+    restart: on-failure
+    links:
+      - kong_db
+    depends_on:
+      - kong_db
 
+  konga:
+    image: pantsel/konga:next
+    restart: always
+    networks:
+      - servicesNetwork
+    environment:
+      DB_ADAPTER: postgres
+      DB_HOST: kong_db
+      DB_USER: ${KONG_PG_USER:-kong}
+      DB_PASSWORD: ${KONG_PG_PASSWORD:-kong}
+      TOKEN_SECRET: km1GUr4RkcQD7DewhJPNXrCuZwcKmqjb
+      DB_DATABASE: konga_db
+      NODE_ENV: production
+    depends_on:
+      - konga-prepare
+    ports:
+      - "1337:1337"
   # ------ API GATEWAY
   gateway_webserver:
     image: nginx:alpine
@@ -135,7 +164,7 @@ services:
     # docker-compose exec users_php supervisord -c /etc/supervisord.conf
     volumes:
       - ./services/users:/var/www/html
-      - ./services/users/supervisor/supervisord.conf:/etc/supervisord.conf
+    #  - ./services/users/supervisor/supervisord.conf:/etc/supervisord.conf
     networks:
       - servicesNetwork
 
