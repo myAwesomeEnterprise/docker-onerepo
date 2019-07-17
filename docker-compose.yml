@@ -164,7 +164,7 @@ services:
     # docker-compose exec users_php supervisord -c /etc/supervisord.conf
     volumes:
       - ./services/users:/var/www/html
-    #  - ./services/users/supervisor/supervisord.conf:/etc/supervisord.conf
+      - ./services/users/supervisor/supervisord.conf:/etc/supervisord.conf
     networks:
       - servicesNetwork
 
