@@ -121,6 +121,8 @@ services:
       - konga-prepare
     ports:
       - "1337:1337"
+
+
   # ------ API GATEWAY
   gateway_webserver:
     image: nginx:alpine
@@ -144,14 +146,16 @@ services:
 
 
   # ------ USERS SERVICE
-  users_webserver:
+  users.dev:
     image: nginx:alpine
-    container_name: 'users_webserver'
+    container_name: 'users.dev'
     ports:
       - "8010:80"
+      - "4431:443"
     volumes:
       - ./docker/nginx/users/sites:/etc/nginx/conf.d
       - ./docker/nginx/users/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/users/ssl:/etc/nginx/ssl
       - ./services/users:/var/www/html
     networks:
       - servicesNetwork
