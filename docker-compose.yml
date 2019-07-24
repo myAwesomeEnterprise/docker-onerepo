@@ -69,7 +69,7 @@ services:
       - "8000:8000/tcp"
       - "8001/tcp"
       - "8443:8443/tcp"
-      - "8444:8444/tcp"
+      - "8444/tcp"
     restart: on-failure
 
   kong_db:
