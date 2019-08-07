@@ -70,6 +70,9 @@ services:
       - "8001/tcp"
       - "8443:8443/tcp"
       - "8444/tcp"
+    volumes:
+      - ./docker/kong/conf/kong.conf:/etc/kong/kong.conf
+      - ./docker/kong/plugins:/etc/kong/plugins
     restart: on-failure
 
   kong_db:
