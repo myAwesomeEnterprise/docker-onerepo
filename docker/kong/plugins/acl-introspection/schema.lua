@@ -2,7 +2,7 @@ local typedefs = require "kong.db.schema.typedefs"
 
 
 return {
-  name = "<plugin-name>",
+  name = "acl-introspection",
   fields = {
     {
       -- this plugin will only be applied to Services or Routes
