@@ -1,4 +1,6 @@
 local BasePlugin = require "kong.plugins.base_plugin"
+-- http://w3.impa.br/~diego/software/luasocket/http.html
+local http = require "socket.http"
 
 local AclIntrospection = BasePlugin:extend()
 
@@ -20,6 +22,12 @@ function AclIntrospection:access(conf)
 
   local requestPath       = kong.request.get_path() -- example /api/v1/users
   local requestAuth       = kong.request.get_header("x-authenticated-userid") -- uuid | nil
+
+  -- https://gist.github.com/lidashuang/6286723
+  local response, code, headers = http.request{
+    url = "https://127.0.0.1:8443/api/v1/acl/allow",
+    method = "GET"
+  }
 
   if false then
     return kong.response.exit(httpForbiddenCode, {
