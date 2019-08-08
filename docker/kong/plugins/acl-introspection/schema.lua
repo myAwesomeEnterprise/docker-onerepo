@@ -24,6 +24,13 @@ return {
         type = "record",
         fields = {
           -- Describe your plugin's configuration's schema here.
+          {
+            hide = {
+              type = "boolean",
+              default = false
+            },
+          },
+
         },
       },
     },
