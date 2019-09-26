@@ -23,13 +23,23 @@ function AclIntrospection:access(conf)
   local requestPath       = kong.request.get_path() -- example /api/v1/users
   local requestAuth       = kong.request.get_header("x-authenticated-userid") -- uuid | nil
 
+  local aclPath = "https://127.0.0.1:8443/api/v1/acl/allow"
+  local aclMethod = "POST"
+  local aclBody = [[login=user&password=123]]
+  local payload = [[ {"key":"My Key","name":"My Name","description":"The description","state":1} ]]
+
   -- https://gist.github.com/lidashuang/6286723
   local response, code, headers = http.request{
-    url = "https://127.0.0.1:8443/api/v1/acl/allow",
-    method = "GET"
+    url = aclPath,
+    method = aclMethod,
+    headers = {
+    	["Content-Type"] = "application/json",
+    	["Content-Length"] = aclBody:len()
+    },
+    source = ltn12.source.string(aclBody)
   }
 
-  if false then
+  if code > 400 && code < 500 then
     return kong.response.exit(httpForbiddenCode, {
       message = httpForbiddenMsg
     })
